@@ -1,16 +1,8 @@
-
 #Library for the code
 library(dplyr)
 library(tidyr)
 
 #Access to the train and test files
-#Content of the file:
-#x_test: measurement of 561 variables for each volunteer (see label)
-#y_test: activity of the volunteer (from 1 to 6, see label)
-#subject_test: volunteer performing the experiment (from 1 to 30)
-#x_train: measurement of 561 variables for each volunteer
-#y_train: activity of the volunteer (from 1 to 6, see label)
-#subject_train: subject performing the experiment (from 1 to 30)
 
 path_test <- "UCI HAR Dataset/test/"
 path_train <- "UCI HAR Dataset/train/"
@@ -75,3 +67,5 @@ dataFiltered <- dataMerged[,c(1,2,3,grep("mean|std",names(dataMerged)))]
 dataMean <- dataFiltered %>%
   group_by(SubjectID, ActivityID, ActivityName) %>%
   summarise(across(1:79, mean))
+
+write.table(dataMean, "DataTidy.txt",row.names = FALSE)
